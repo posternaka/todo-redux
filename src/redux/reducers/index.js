@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
-import { getValueReducer } from "./getValueReducer";
-import { setValueReducer } from "./setInputValueReducer";
+import { setValue } from './setValueReducer';
 
 export const reducers = combineReducers({
-    arr: getValueReducer,
-    value: setValueReducer,
-})
+    inputValue: setValue,
+});
