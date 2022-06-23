@@ -23,53 +23,92 @@ function Main() {
       dispatch(visibleText(id));
     }
 
+    const div = (item) => (
+      <div 
+        key={item.id} 
+        className={item.checkbox ? 'wrapper_side task success' : 'wrapper_side task'}
+      >
+
+        <input 
+          type="checkbox" 
+          id="checkbox" 
+          checked={item.checkbox}
+          onChange={() => dispatch(checkbox(item.id))}
+        />
+
+        <div className={item.checkbox ? 'checkbox' : ''}>
+          <p 
+            className={item.visibleText ? 'show' : 'close'}  
+            onClick={() => hadleEditValue(item.id)}>{item.textTask}
+          </p>
+        </div>
+
+        <input 
+          className={item.editValue ? 'wrapper_side-input show' : 'close'} 
+          type="text" 
+          defaultValue={item.textTask} 
+          onChange={(e) => dispatch(changeValue(e.target.value, item.id))}
+        />
+
+        <div>
+          <button 
+            className={item.checkbox ? 'wrapper_side-button green-border' : 'wrapper_side-button'} 
+            onClick={() => hadleEditValue(item.id)}
+          >
+            Edit
+          </button>
+          <button 
+            className={item.checkbox ? 'wrapper_side-button green-border' : 'wrapper_side-button'} 
+            onClick={() => dispatch(deleteTask(item.id))}
+          >
+            Удалить
+          </button>
+        </div>
+
+      </div>
+    )
+
 
   return (
     <div className='wrapper'>
 
       <div className="wrapper_side">
-        <input className='wrapper_side-input' type="text" value={valueInput} onChange={(e) => setValueInput(e.target.value)}/>
-        <button class="wrapper_side-button" onClick={() => sentValue()}>Добавить</button>
+        <input 
+          className='wrapper_side-input' 
+          type="text" 
+          value={valueInput} 
+          onChange={(e) => setValueInput(e.target.value)}
+        />
+        <button 
+          class="wrapper_side-button" 
+          onClick={() => sentValue()}
+        >
+          Добавить
+        </button>
       </div>
 
-      <div className="first__side card">
-        <div className="card__background-circle circle1"></div>
-        <div className="card__background-circle circle2"></div>
-
-        <div className="success-tasks">
-          <h3>Done Task:</h3>
-          
-        </div>
-
-        <div className="success-tasks">
-          <h3>In progress Task:</h3>
-
-        </div>
+      <div className="twice_tasks">
 
         <div className="card__content">
-          {
-            inputValue && 
-              inputValue
-                .map(item => 
-                  <div key={item.id} className={item.checkbox ? 'wrapper_side task success' : 'wrapper_side task'}>
 
-                    <input type="checkbox" id="checkbox" onChange={() => dispatch(checkbox(item.id))}/>
+          <div className="success-tasks">
+            <h3>In progress Task:</h3>
+            {
+              inputValue &&
+                inputValue.map(item => item.checkbox !== true ? div(item) : '')
+            }
+          </div>
 
-                    <div className={item.checkbox ? 'checkbox' : ''}>
-                      <p className={item.visibleText ? 'show' : 'close'}  onClick={() => hadleEditValue(item.id)}>{item.textTask}</p>
-                    </div>
-                    <input className={item.editValue ? 'wrapper_side-input show' : 'close'} type="text" defaultValue={item.textTask} onChange={(e) => dispatch(changeValue(e.target.value, item.id))}/>
-                    <div>
-                      <button className='wrapper_side-button' onClick={() => hadleEditValue(item.id)}>Edit</button>
-                      <button className='wrapper_side-button' onClick={() => dispatch(deleteTask(item.id))}>Удалить</button>
-                    </div>
-                  </div>  
-                )
-                .filter(item => item.checkbox === true)
-          }
+          <div className="inprogress-tasks">
+            <h3>Done Task:</h3>
+            {
+              inputValue &&
+                inputValue.map(item => item.checkbox === true ? div(item) : '')
+            }
+          </div>
+
         </div>
       </div>
-
     </div>
   )
 }

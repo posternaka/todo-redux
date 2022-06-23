@@ -66,6 +66,10 @@
   text-transform: uppercase;
 }
 
+.green-border {
+  border: 1px solid #24832f;
+}
+
 .wrapper_side-button:hover {
   transition: .3s ease-in-out;
   background: #4F95DA;
@@ -95,4 +99,28 @@ input[type=checkbox] {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+.twice_tasks {
+  width: 100%;
+}
+
+.card__content {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.success-tasks {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inprogress-tasks {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
