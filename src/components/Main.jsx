@@ -36,20 +36,36 @@ function Main() {
         <div className="card__background-circle circle1"></div>
         <div className="card__background-circle circle2"></div>
 
+        <div className="success-tasks">
+          <h3>Done Task:</h3>
+          
+        </div>
+
+        <div className="success-tasks">
+          <h3>In progress Task:</h3>
+
+        </div>
+
         <div className="card__content">
           {
             inputValue && 
-              inputValue.map(item => 
-                <div key={item.id} className={item.checkbox ? 'wrapper_side task success' : 'wrapper_side task'}>
-                  <input className='wrapper_side-input' type="checkbox" onChange={() => dispatch(checkbox(item.id))}/>
-                  <div className={item.checkbox ? 'checkbox' : ''}>
-                    <p className={item.visibleText ? 'show' : 'close'}  onClick={() => hadleEditValue(item.id)}>{item.textTask}</p>
-                  </div>
-                  <input className={item.editValue ? 'wrapper_side-input show' : 'close'} type="text" defaultValue={item.textTask} onChange={(e) =>    dispatch(changeValue(e.target.value, item.id))}/>
-                  <button className='wrapper_side-button' onClick={() => hadleEditValue(item.id)}>Edit</button>
-                  <button className='wrapper_side-button' onClick={() => dispatch(deleteTask(item.id))}>Удалить</button>
-                </div>  
-              )
+              inputValue
+                .map(item => 
+                  <div key={item.id} className={item.checkbox ? 'wrapper_side task success' : 'wrapper_side task'}>
+
+                    <input type="checkbox" id="checkbox" onChange={() => dispatch(checkbox(item.id))}/>
+
+                    <div className={item.checkbox ? 'checkbox' : ''}>
+                      <p className={item.visibleText ? 'show' : 'close'}  onClick={() => hadleEditValue(item.id)}>{item.textTask}</p>
+                    </div>
+                    <input className={item.editValue ? 'wrapper_side-input show' : 'close'} type="text" defaultValue={item.textTask} onChange={(e) => dispatch(changeValue(e.target.value, item.id))}/>
+                    <div>
+                      <button className='wrapper_side-button' onClick={() => hadleEditValue(item.id)}>Edit</button>
+                      <button className='wrapper_side-button' onClick={() => dispatch(deleteTask(item.id))}>Удалить</button>
+                    </div>
+                  </div>  
+                )
+                .filter(item => item.checkbox === true)
           }
         </div>
       </div>
