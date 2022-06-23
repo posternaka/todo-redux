@@ -1,4 +1,4 @@
-import {GET_VALUE, GET_VALUE_TRUE, DELETE} from '../actions/actionTypes';
+import {GET_VALUE, GET_VALUE_TRUE, DELETE, EDIT_VALUE, EDIT_NAME_TASK} from '../actions/actionTypes';
 const arr = [];
 
 export const getValueReducer = (state = arr, action) => {
@@ -10,6 +10,8 @@ export const getValueReducer = (state = arr, action) => {
                     id: Date.parse(new Date()), 
                     text: action.payload,
                     status: false,
+                    classShowEdit: false,
+                    editNameTask: true,
                 }
             ]
         }
@@ -23,6 +25,18 @@ export const getValueReducer = (state = arr, action) => {
         case DELETE: {
             return [
                 ...state.filter(item => item.id !== action.payload)
+            ]
+        }
+
+        case EDIT_VALUE: {
+            return [
+                ...state.map((item) => item.id === action.payload ? {...item, classShowEdit: !item.classShowEdit} : item)
+            ]
+        }
+
+        case EDIT_NAME_TASK: {
+            return [
+                ...state.map((item) => item.id === action.payload ? {...item, editNameTask: !item.classShowEdit} : item)
             ]
         }
 

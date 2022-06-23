@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Todo from './Todo';
 import { Provider } from 'react-redux';
 import store from './redux/store';
