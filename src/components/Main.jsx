@@ -55,13 +55,13 @@ function Main() {
             className={item.checkbox ? 'wrapper_side-button green-border' : 'wrapper_side-button'} 
             onClick={() => hadleEditValue(item.id)}
           >
-            Edit
+            {item.editValue ? 'Save' :  'Edit'}
           </button>
           <button 
             className={item.checkbox ? 'wrapper_side-button green-border' : 'wrapper_side-button'} 
             onClick={() => dispatch(deleteTask(item.id))}
           >
-            Удалить
+            Delete
           </button>
         </div>
 
@@ -83,7 +83,7 @@ function Main() {
           class="wrapper_side-button" 
           onClick={() => sentValue()}
         >
-          Добавить
+          Add a task
         </button>
       </div>
 
